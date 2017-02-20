@@ -60,6 +60,7 @@
             z=0;
         var isReady = false;
         var ready2start = false;
+        var playerNum;
         socket.emit("USER_CONNECT");
 
         $('#up').click(() => {
@@ -96,7 +97,7 @@
         });
 
         socket.on('PLAY', (data) => {
-          var playerNum = data['number'] ;
+          playerNum = data['number'] ;
           if (playerNum != 0) {
             x = 13;
           }
@@ -114,6 +115,17 @@
         });
         socket.on('USER_DISCONNECTED', (data) => {
           console.log(data);
+          if(playerNum == 1) {
+            playerNum = 0;
+            x = -13;
+            $('#playerNum').text(1);
+            var playerData =
+            {
+              name: name,
+              position: x + ','+ y +',' + z
+            };
+            socket.emit('MOVE', playerData);
+          }
         });
 
         socket.on('START', (data) => {
