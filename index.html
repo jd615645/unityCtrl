@@ -135,6 +135,10 @@
           }, 3000);
         });
 
+        socket.on('WINNER', (data) => {
+          $('#ready').fadeIn();
+        });
+
         $('input').keypress(function(e) {
           if(e.which == 13) {
             name = $('input').val();
