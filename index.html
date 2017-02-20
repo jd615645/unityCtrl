@@ -59,13 +59,12 @@
             y=0.5,
             z=0;
         var isReady = false;
-        var ready2start = false;
         var playerNum;
         socket.emit("USER_CONNECT");
 
         $('#up').click(() => {
           console.log('up');
-          if (!ready2start) {
+          if (!isReady) {
             z+=1;
             var playerData =
             {
@@ -78,7 +77,7 @@
 
         $('#down').click(() => {
           console.log('down');
-          if (!ready2start) {
+          if (!isReady) {
             z-=1;
             var playerData =
             {
@@ -130,9 +129,9 @@
 
         socket.on('START', (data) => {
           console.log('START');
-          ready2start = true;
+          $('#ready').fadeOut();
           setTimeout(()=>{
-            ready2start = false;
+            isReady = false;
           }, 3000);
         });
 
