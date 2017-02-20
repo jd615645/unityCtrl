@@ -138,6 +138,12 @@
 
         socket.on('WINNER', (data) => {
           $('#ready').fadeIn();
+          if (playerNum == 0) {
+            socket.emit('MOVE', { name: name, position: '-13,0.5,0' });
+          }
+          else {
+            socket.emit('MOVE', { name: name, position: '13,0.5,0' });
+          }
         });
 
         $('input').keypress(function(e) {
