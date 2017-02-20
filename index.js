@@ -23,7 +23,7 @@ io.on("connection", function(socket){
      for(var i = 0; i < clients.length; i++){
        socket.emit("USER_CONNECTED",{name:clients[i].name, position:clients[i].position, number:clients[i].number, ready:clients[i].ready});
 
-       console.log("User name" + clients[i].name + "is connected");
+       console.log("User name" + clients[i].name + " is connected");
      }
    });
 
@@ -89,12 +89,14 @@ io.on("connection", function(socket){
 
    socket.on("disconnect", function(){
      socket.broadcast.emit("USER_DISCONNECTED", currentUser);
-     for(var i = 0; i < clients.length; i++){
-       if(clients[i].name == currentUser.name){
-         console.log("User "+ clients[i].name + "disconnected");
-         clients.splice(i,1);
-       }
-     };
+     if(currentUser !== undefined) {
+       for(var i = 0; i < clients.length; i++){
+         if(clients[i].name == currentUser.name){
+           console.log("User "+ clients[i].name + " disconnected");
+           clients.splice(i,1);
+         }
+       };
+     }
    });
 });
 
