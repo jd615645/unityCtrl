@@ -90,9 +90,9 @@
 
         $('#ready').click(() => {
           console.log('ready');
-          socket.emit('READY', isReady);
           isReady = !isReady;
           $('#ready span').text(isReady);
+          socket.emit('READY', isReady);
         });
 
         socket.on('PLAY', (data) => {
