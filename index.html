@@ -132,6 +132,7 @@
           $('#ready').fadeOut();
           setTimeout(()=>{
             isReady = false;
+            $('#ready span').text(isReady);
           }, 3000);
         });
 
