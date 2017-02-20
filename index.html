@@ -64,7 +64,7 @@
 
         $('#up').click(() => {
           console.log('up');
-          if (!isReady) {
+          if (!isReady && z <= 6) {
             z+=1;
             var playerData =
             {
@@ -77,7 +77,7 @@
 
         $('#down').click(() => {
           console.log('down');
-          if (!isReady) {
+          if (!isReady && z >= -6) {
             z-=1;
             var playerData =
             {
