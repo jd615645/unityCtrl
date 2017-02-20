@@ -4,10 +4,11 @@
     <meta charset="utf-8">
     <title>gamepad</title>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
     <meta name="author" content="Sakamoto">
     <style>
       body {
+        margin: 0px;
         height: 100vh;
         width: 100%;
         display: flex;
@@ -37,8 +38,9 @@
 
     <div id="playBtn">
       <h1>Name: <span id='name'></span></h1>
+      <h1>Player: <span id='playerNum'></span></h1>
       <div id="ready">
-        <h1>ready</h1>
+        <h1>ready: <span>false</span></h1>
       </div>
       <div id="up">
         <h1>↑</h1>
@@ -56,43 +58,49 @@
         var x=-13,
             y=0.5,
             z=0;
+        var isReady = false;
+        var ready2start = false;
         socket.emit("USER_CONNECT");
 
         $('#up').click(() => {
           console.log('up');
-          z+=1;
-          var playerData =
-          {
-            name: name,
-            position: x + ','+ y +',' + z
-          };
-          socket.emit('MOVE', playerData);
+          if (!ready2start) {
+            z+=1;
+            var playerData =
+            {
+              name: name,
+              position: x + ','+ y +',' + z
+            };
+            socket.emit('MOVE', playerData);
+          }
         });
 
         $('#down').click(() => {
           console.log('down');
-          z-=1;
-          var playerData =
-          {
-            name: name,
-            position: x + ','+ y +',' + z
-          };
-          socket.emit('MOVE', playerData);
+          if (!ready2start) {
+            z-=1;
+            var playerData =
+            {
+              name: name,
+              position: x + ','+ y +',' + z
+            };
+            socket.emit('MOVE', playerData);
+          }
         });
+
         $('#ready').click(() => {
           console.log('ready');
-          // var playerData =
-          // {
-          //   name: name,
-          //   position: x + ','+ y +',' + z
-          // };
-          // socket.emit('PLAY', playerData);
+          socket.emit('READY', isReady);
+          isReady = !isReady;
+          $('#ready span').text(isReady);
         });
 
         socket.on('PLAY', (data) => {
-          if (data['number'] != 0) {
+          var playerNum = data['number'] ;
+          if (playerNum != 0) {
             x = 13;
           }
+          $('#playerNum').text(playerNum+1);
           var playerData =
           {
             name: name,
@@ -106,6 +114,14 @@
         });
         socket.on('USER_DISCONNECTED', (data) => {
           console.log(data);
+        });
+
+        socket.on('START', (data) => {
+          console.log('START');
+          ready2start = true;
+          setTimeout(()=>{
+            ready2start = false;
+          }, 3000);
         });
 
         $('input').keypress(function(e) {
