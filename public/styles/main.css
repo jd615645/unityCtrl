@@ -1,0 +1,22 @@
+body {
+  margin: 0px;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+input {
+  width: 100%;
+  text-align: center;
+  font-size: 24px;
+}
+#keyin {
+  margin: 0px 20px;
+}
+#playBtn {
+  display: none;
+  width: 50%;
+  text-align: center;
+}

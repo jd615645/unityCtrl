@@ -1,0 +1,34 @@
+extends layout
+
+block content
+  #keyin
+    h2 Please keyin your name
+    input(type='text')
+
+  #playBtn
+    h1
+      | Name:
+      span#name
+    h1
+      | Player:
+      span#playerNum
+    button#ready
+      h1
+        | ready:
+        span false
+
+    script#joystick-view(type='text/html').
+      <canvas id="joystickCanvas" width="<%= squareSize %>" height="<%= squareSize %>" style="width: <%= squareSize %>px; height: <%= squareSize %>px;">
+      </canvas>
+    #joystickContent
+      //- p x:
+      //-   span#xVal
+      //- p y:
+      //-   span#yVal
+
+  script(src='https://code.jquery.com/jquery-2.2.4.min.js')
+  script(src='/socket.io/socket.io.js')
+  script(type='text/javascript', src='js/underscore-min.js')
+  script(type='text/javascript', src='js/backbone-min.js')
+  script(type='text/javascript', src='js/joystick_view.js')
+  script(type='text/javascript', src='js/main.js')
