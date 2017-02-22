@@ -79,13 +79,19 @@ io.on("connection", function(socket){
 
    socket.on("PLAY", function( data ){
      console.log(data);
-
+     var leftOrRight;
+     if (clients.length == 0) {
+         leftOrRight = -1;
+     } else {
+         leftOrRight = 1;
+     }
      currentUser = {
        name:data.name,
-       position: data.position,
+       position: (leftOrRight * 13) + "," + 0.5 + "," + 0,
        number: clients.length,
        ready: 0
      }
+     console.log(currentUser);
      clients.push(currentUser);
      socket.emit("PLAY",currentUser);
      socket.broadcast.emit("USER_CONNECTED",currentUser);
@@ -107,16 +113,24 @@ io.on("connection", function(socket){
        }
        socket.emit("READY", currentUser);
        socket.broadcast.emit("READY", currentUser);
-       if (clients.length > 1) {
+       /*if (clients.length > 1) {
            if (clients[0].ready && clients[1].ready) {
                socket.emit("START");
                socket.broadcast.emit("START");
                clients[0].ready = false;
                clients[1].ready = false;
            }
-       }
+       }*/
 
 
+   });
+
+   socket.on("START", function () {
+       console.log("start");
+       socket.emit("START");
+       socket.broadcast.emit("START");
+       clients[0].ready = false;
+       clients[1].ready = false;
    });
 
    socket.on("disconnect", function(){
@@ -128,6 +142,9 @@ io.on("connection", function(socket){
            clients.splice(i,1);
          }
        };
+       for (var i = 0; i < clients.length; i++) {
+           clients[i].number = i;
+       }
      }
    });
 });
