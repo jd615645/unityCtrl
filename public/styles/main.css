@@ -15,7 +15,18 @@ input {
 #keyin {
   margin: 0px 20px;
 }
-#playBtn {
+#info {
+  position: absolute;
+  top: 0;
+}
+#info p {
+  margin: 0px;
+}
+#readyBlock {
+  position: absolute;
+  bottom: 0; 
+}
+.playBtn {
   display: none;
   width: 50%;
   text-align: center;

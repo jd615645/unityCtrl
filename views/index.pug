@@ -5,18 +5,19 @@ block content
     h2 Please keyin your name
     input(type='text')
 
-  #playBtn
-    h1
+  .playBtn#info
+    p
       | Name:
       span#name
-    h1
+    p
       | Player:
       span#playerNum
+  .playBtn#readyBlock
     button#ready
-      h1
+      p
         | ready:
         span false
-
+  .playBtn
     script#joystick-view(type='text/html').
       <canvas id="joystickCanvas" width="<%= squareSize %>" height="<%= squareSize %>" style="width: <%= squareSize %>px; height: <%= squareSize %>px;">
       </canvas>

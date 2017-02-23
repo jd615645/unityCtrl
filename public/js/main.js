@@ -13,36 +13,38 @@ $(document).ready(() => {
       callbackView.renderSprite();
     }, 0);
   });
-  joystickView.bind("verticalMove", (y) => {
+  joystickView.bind("verticalMove", (joystick_y) => {
     // console.log(y);
     // $("#yVal").html(y);
-    if (y > 0) {
+    if (joystick_y > 0) {
       console.log('up');
 
-      if (!isReady && z <= 6) {
-        z+=1;
+      if (!isReady && z < 6) {
+        z+=0.2;
         var playerData =
         {
           name: name,
           position: x + ','+ y +',' + z
         };
         socket.emit('MOVE', playerData);
+        sleep(50);
       }
     }
-    else if (y < 0) {
+    else if (joystick_y < 0) {
       console.log('down');
-      if (!isReady && z >= -6) {
-        z-=1;
+      if (!isReady && z > -6) {
+        z-=0.2;
         var playerData =
         {
           name: name,
           position: x + ','+ y +',' + z
         };
         socket.emit('MOVE', playerData);
+        sleep(50);
       }
     }
   });
-  joystickView.bind("horizontalMove", (x) => {
+  joystickView.bind("horizontalMove", (joystick_x) => {
     // 橫向
     // console.log(x);
     // $("#xVal").html(x);
@@ -86,7 +88,8 @@ $(document).ready(() => {
   });
   socket.on('USER_DISCONNECTED', (data) => {
     console.log(data);
-    if(playerNum == 1) {
+    $('.playBtn').fadeIn();
+    if(playerNum == 1 && data['name'] != 'hoster') {
       playerNum = 0;
       x = -13;
       $('#playerNum').text(1);
@@ -118,7 +121,7 @@ $(document).ready(() => {
       if (name != '') {
         $('#name').text(name);
         $('#keyin').fadeOut();
-        $('#playBtn').fadeIn();
+        $('.playBtn').fadeIn();
 
         console.log('play');
         var playerData =
@@ -130,4 +133,12 @@ $(document).ready(() => {
       }
     }
   });
+  function sleep(milliseconds) {
+  var start = new Date().getTime();
+  for (var i = 0; i < 1e7; i++) {
+    if ((new Date().getTime() - start) > milliseconds){
+      break;
+    }
+  }
+}
 });
