@@ -54,7 +54,7 @@ $(document).ready(() => {
     console.log('up');
 
     if (!isReady && z < 6) {
-      z+=0.2;
+      z+=0.5;
       var playerData =
       {
         name: name,
@@ -64,7 +64,7 @@ $(document).ready(() => {
     }
   });
   $('#down').click(function(){
-    z-=0.2;
+    z-=0.5;
     var playerData =
     {
       name: name,
