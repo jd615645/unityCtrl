@@ -17,11 +17,15 @@ block content
       p
         | ready:
         span false
-  .playBtn
-    script#joystick-view(type='text/html').
-      <canvas id="joystickCanvas" width="<%= squareSize %>" height="<%= squareSize %>" style="width: <%= squareSize %>px; height: <%= squareSize %>px;">
-      </canvas>
-    #joystickContent
+  .playBtn#ctrlBtn
+    button#up
+      h3 up
+    button#down
+      h3 down
+    //- script#joystick-view(type='text/html').
+    //-   <canvas id="joystickCanvas" width="<%= squareSize %>" height="<%= squareSize %>" style="width: <%= squareSize %>px; height: <%= squareSize %>px;">
+    //-   </canvas>
+    //- #joystickContent
       //- p x:
       //-   span#xVal
       //- p y:
@@ -29,7 +33,7 @@ block content
 
   script(src='https://code.jquery.com/jquery-2.2.4.min.js')
   script(src='/socket.io/socket.io.js')
-  script(type='text/javascript', src='js/underscore-min.js')
-  script(type='text/javascript', src='js/backbone-min.js')
-  script(type='text/javascript', src='js/joystick_view.js')
+  //- script(type='text/javascript', src='js/underscore-min.js')
+  //- script(type='text/javascript', src='js/backbone-min.js')
+  //- script(type='text/javascript', src='js/joystick_view.js')
   script(type='text/javascript', src='js/main.js')

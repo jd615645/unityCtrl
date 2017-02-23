@@ -7,48 +7,72 @@ $(document).ready(() => {
   var playerNum;
   socket.emit("USER_CONNECT");
 
-  var joystickView = new JoystickView(150, (callbackView) => {
-    $("#joystickContent").append(callbackView.render().el);
-    setTimeout(function(){
-      callbackView.renderSprite();
-    }, 0);
-  });
-  joystickView.bind("verticalMove", (joystick_y) => {
-    // console.log(y);
-    // $("#yVal").html(y);
-    if (joystick_y > 0) {
-      console.log('up');
+  // var joystickView = new JoystickView(150, (callbackView) => {
+  //   $("#joystickContent").append(callbackView.render().el);
+  //   setTimeout(function(){
+  //     callbackView.renderSprite();
+  //   }, 0);
+  // });
+  // joystickView.bind("verticalMove", (joystick_y) => {
+  //   // console.log(y);
+  //   // $("#yVal").html(y);
+  //   if (joystick_y > 0) {
+  //     console.log('up');
+  //
+  //     if (!isReady && z < 6) {
+  //       z+=0.2;
+  //       var playerData =
+  //       {
+  //         name: name,
+  //         position: x + ','+ y +',' + z
+  //       };
+  //       socket.emit('MOVE', playerData);
+  //       sleep(50);
+  //     }
+  //   }
+  //   else if (joystick_y < 0) {
+  //     console.log('down');
+  //     if (!isReady && z > -6) {
+  //       z-=0.2;
+  //       var playerData =
+  //       {
+  //         name: name,
+  //         position: x + ','+ y +',' + z
+  //       };
+  //       socket.emit('MOVE', playerData);
+  //       sleep(50);
+  //     }
+  //   }
+  // });
+  // joystickView.bind("horizontalMove", (joystick_x) => {
+  //   // 橫向
+  //   // console.log(x);
+  //   // $("#xVal").html(x);
+  // });
 
-      if (!isReady && z < 6) {
-        z+=0.2;
-        var playerData =
-        {
-          name: name,
-          position: x + ','+ y +',' + z
-        };
-        socket.emit('MOVE', playerData);
-        sleep(50);
-      }
-    }
-    else if (joystick_y < 0) {
-      console.log('down');
-      if (!isReady && z > -6) {
-        z-=0.2;
-        var playerData =
-        {
-          name: name,
-          position: x + ','+ y +',' + z
-        };
-        socket.emit('MOVE', playerData);
-        sleep(50);
-      }
+  $('#up').click(function(){
+    console.log('up');
+
+    if (!isReady && z < 6) {
+      z+=0.2;
+      var playerData =
+      {
+        name: name,
+        position: x + ','+ y +',' + z
+      };
+      socket.emit('MOVE', playerData);
     }
   });
-  joystickView.bind("horizontalMove", (joystick_x) => {
-    // 橫向
-    // console.log(x);
-    // $("#xVal").html(x);
+  $('#down').click(function(){
+    z-=0.2;
+    var playerData =
+    {
+      name: name,
+      position: x + ','+ y +',' + z
+    };
+    socket.emit('MOVE', playerData);
   });
+
 
   $('#ready').click(() => {
     console.log('ready');

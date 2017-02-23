@@ -24,7 +24,10 @@ input {
 }
 #readyBlock {
   position: absolute;
-  bottom: 0; 
+  bottom: 0;
+}
+#ctrlBtn button {
+  width: 100%;
 }
 .playBtn {
   display: none;
